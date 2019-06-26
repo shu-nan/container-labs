@@ -1,7 +1,7 @@
 FROM node:latest
 
 ENV DB_HOST=northwind_db  DB_PORT=3306 DB_USER=root DB_PASSWORD=changeit \
-  APP_PORT=5000 APP_DIR=/northwind
+  APP_PORT=3000 APP_DIR=/northwind
 
 WORKDIR ${APP_DIR}
 
