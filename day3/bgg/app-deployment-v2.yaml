@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: bgg-app-deployment-v2
+  namespace: workshop-day2
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bgg-app-pod
+      app.kubernetes.io/version: "v2"
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+
+  template:
+    metadata:
+      name: bgg-app-pod
+      labels: 
+        app.kubernetes.io/name: bgg-app-pod
+        app.kubernetes.io/version: "v2"
+        owner: engineering
+
+    spec:
+      containers:
+      - name: bgg-app-v2
+        image: stackupiss/bgg-app:v2
+        imagePullPolicy: Always
+        ports:
+        - name: bgg-app-port-v2
+          containerPort: 3000
+        env:
+        - name: APP_PORT
+          value: "3000"
+        - name: BGG_DB_HOST
+          valueFrom:
+            configMapKeyRef:
+                name: bggconfigmap
+                key: mysql-host

@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+
+kind: Ingress
+
+metadata:
+  name: bgg-ingress-host
+  namespace: workshop-day2
+  annotations: 
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+
+spec:
+  rules:
+  - host: "bgg-v1.139.59.223.5.nip.io"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: bgg-app-svc-v1
+          servicePort: 80
+
+  - host: "bgg.139.59.223.5.nip.io"
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: bgg-app-svc-v2
+            servicePort: 80
