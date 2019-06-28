@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: weather-app-svc
+
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: weather-pod
+  ports:
+  - name: weather-app-port
+    port: 80
+    targetPort: weather-port
+    

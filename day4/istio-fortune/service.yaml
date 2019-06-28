@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: fortune-app-svc
+  namespace: workshop-day2
+
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: fortune-pod
+  ports:
+  - name: fortune-app-port
+    port: 80
+    targetPort: fortune-port
+

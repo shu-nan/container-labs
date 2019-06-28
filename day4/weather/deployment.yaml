@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: weather-app
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: weather-pod
+
+  template:
+    metadata:
+      name: weather-pod
+      labels: 
+        app.kubernetes.io/name: weather-pod
+        app.kubernetes.io/version: "v1"
+        owner: engineering
+
+    spec:
+      containers:
+      - name: weather
+        image: stackupiss/weather:v1
+        imagePullPolicy: Always
+        env:
+        - name: APP_PORT
+          value: "3000"
+        - name: APP_ID
+          value: <API_KEY>
+        - name: APP_DEFAULT_CITY
+          value: "Singapore"
+        ports:
+        - name: weather-port
+          containerPort: 3000
+

@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3
+
+kind: Gateway
+
+metadata:
+  name: furtune-gateway
+  namespace: workshop-day2
+
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port: 
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+      - fortune.139.59.222.245.nip.io
